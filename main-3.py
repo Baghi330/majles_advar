@@ -5,7 +5,7 @@ from tqdm import tqdm
 
 # --- تنظیمات ---
 excel_file = 'files/qavanin.xlsx'          # فایل ورودی
-output_file = 'files/qavanin_output.xlsx'  # فایل خروجی
+output_file = 'files/qavanin_output5.xlsx'  # فایل خروجی
 base_folder = r'D:\pdf advar'
 
 # ستون‌ها
@@ -102,12 +102,14 @@ def process_dataframe(df, period_map, base_subfolder):
             for folder in found_folders:
                 files = os.listdir(folder)
                 pdfs = [f for f in files if f.lower().endswith('.pdf')]
+                                
                 images = [
                     f for f in files
                     if lib_folder_val and lib_folder_val.lower() != "nan"
-                    and os.path.splitext(f)[0].replace(" ", "").strip().startswith(lib_folder_val.replace(" ", "").strip())
+                    and lib_folder_val.replace(" ", "").strip() in os.path.splitext(f)[0].replace(" ", "").strip()
                     and f.lower().endswith(('.jpg', '.jpeg', '.png', '.tif', '.bmp'))
                 ]
+
                 if pdfs or images:
                     has_file = True
                     break
